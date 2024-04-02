@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'marvelcollector.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'marvelcollectors'
+        'NAME': 'marvelcollector'
     }}
 
 # Password validation
