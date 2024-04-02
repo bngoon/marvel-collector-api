@@ -12,7 +12,3 @@ class Character(models.Model):
 
     def __str__(self):
         return self.name
-
-
-# h = Character(name="Hulk", description="angry",
-#               powers="gamma", affiliation="avengers", image="null")
