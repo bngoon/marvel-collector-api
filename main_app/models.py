@@ -1,6 +1,11 @@
 from django.db import models
 
 # Create your models here.
+RATINGS = (
+    ('N', 'New'),
+    ('F', 'Fair'),
+    ('U', 'Used'),
+)
 
 
 class Character(models.Model):
@@ -12,3 +17,13 @@ class Character(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Condition(models.Model):
+    date = models.DateField('Date Collected')
+    rating = models.CharField(
+        max_length=1, choices=RATINGS, default=RATINGS[0][0])
+    character = models.ForeignKey(Character, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.get_conition_display()} on {self.date}"
