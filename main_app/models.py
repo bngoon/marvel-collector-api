@@ -26,4 +26,7 @@ class Condition(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.get_conition_display()} on {self.date}"
+        return f"{self.get_rating_display()} on {self.date}"
+
+    class Meta:
+        ordering = ['-date']
