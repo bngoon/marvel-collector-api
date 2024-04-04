@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Home, CharacterList, CharacterDetail, ConditionListCreate, ConditionDetail, AddAccessoryToCharacter, RemoveAccessoryFromCharacter
+from .views import Home, CharacterList, CharacterDetail, ConditionListCreate, ConditionDetail, AddAccessoryToCharacter, RemoveAccessoryFromCharacter, CreateUserView, LoginView, VerifyUserView
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),
@@ -16,5 +16,9 @@ urlpatterns = [
          AddAccessoryToCharacter.as_view(), name='add-accessory-to-character'),
 
     path('characters/int:character_id>/remove_accessory/int:accessory_id>/',
-         RemoveAccessoryFromCharacter.as_view(), name='remove-accessory-from-character')
+         RemoveAccessoryFromCharacter.as_view(), name='remove-accessory-from-character'),
+
+    path('users/register/', CreateUserView.as_view(), name='register'),
+    path('users/login/', LoginView.as_view(), name='login'),
+    path('users/token/refresh/', VerifyUserView.as_view(), name='token_refresh')
 ]
