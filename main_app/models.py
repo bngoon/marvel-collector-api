@@ -8,12 +8,21 @@ RATINGS = (
 )
 
 
+class Accessory(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Character(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     powers = models.TextField(max_length=250)
     affiliation = models.CharField(max_length=100)
     image = models.ImageField(upload_to='characters/', null=True, blank=True)
+    accessories = models.ManyToManyField(Accessory)
 
     def __str__(self):
         return self.name
