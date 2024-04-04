@@ -97,7 +97,7 @@ class CharacterDetail(generics.RetrieveUpdateDestroyAPIView):
         serializer = self.get_serializer(instance)
 
         accessories_not_associated = Accessory.objects.exclude(
-            id__in=instance.toys.all())
+            id__in=instance.accessories.all())
         accessories_serializer = AccessorySerializer(
             accessories_not_associated, many=True)
 
@@ -114,7 +114,7 @@ class CharacterDetail(generics.RetrieveUpdateDestroyAPIView):
         serializer.save()
 
     def perform_destroy(self, instance):
-        if instance.user != self.reuqest.user:
+        if instance.user != self.request.user:
             raise PermissionDenied(
                 {"message": "You do not have permission to delete this chracter"})
         instance.delete()
@@ -138,7 +138,7 @@ class ConditionDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
     def get_queryset(self):
-        character_id = self.kwargs['cracter_id']
+        character_id = self.kwargs['character_id']
         return Condition.objects.filter(character_id=character_id)
 
 
@@ -154,5 +154,5 @@ class RemoveAccessoryFromCharacter(APIView):
     def post(self, request, character_id, accessory_id):
         character = Character.objects.get(id=character_id)
         accessory = Accessory.objects.get(id=accessory_id)
-        character.accessories.add(accessory)
+        character.accessories.remove(accessory)
         return Response({'message': f'Accessory {accessory.name} taken away from Character {character.name}'})
